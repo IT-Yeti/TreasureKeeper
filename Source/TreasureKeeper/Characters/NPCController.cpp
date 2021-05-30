@@ -13,3 +13,4 @@ void ANPCController::BeginPlay()
         RunBehaviorTree(BTree);
     }
 }
+
