@@ -13,6 +13,9 @@ UCLASS()
 class TREASUREKEEPER_API ANPCController : public AAIController
 {
 	GENERATED_BODY()
+public:
+	UPROPERTY(EditAnywhere,BlueprintReadWrite)
+	TArray<AActor*> Treasures;
 protected:
 	virtual void BeginPlay();
 private:
