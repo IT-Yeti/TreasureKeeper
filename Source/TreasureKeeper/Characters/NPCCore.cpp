@@ -15,9 +15,6 @@ ANPCCore::ANPCCore()
 void ANPCCore::BeginPlay()
 {
 	Super::BeginPlay();
-	AActor* OwnerActor = GetOwner();
-	UE_LOG(LogTemp,Warning,TEXT("MyNameIs: %s"),*OwnerActor->GetName())
-	
 }
 
 // Called every frame
@@ -27,10 +24,4 @@ void ANPCCore::Tick(float DeltaTime)
 
 }
 
-// Called to bind functionality to input
-void ANPCCore::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
-{
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
-}
 
