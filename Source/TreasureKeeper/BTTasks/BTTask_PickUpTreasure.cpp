@@ -21,10 +21,10 @@ EBTNodeResult::Type UBTTask_PickUpTreasure::ExecuteTask(UBehaviorTreeComponent& 
     {
         Treasure->Destroy();
         NPCBlackboard->ClearValue(GetSelectedBlackboardKey());
-    } else
-    {
-        NPCBlackboard->ClearValue("SeeTreasure");
-    }
-        return EBTNodeResult::Succeeded;
+        NPCBlackboard->ClearValue(TEXT("SeeTreasure"));
+        Treasure->isTaken=true;
+        
+    } 
+    return EBTNodeResult::Succeeded;
     
 }
