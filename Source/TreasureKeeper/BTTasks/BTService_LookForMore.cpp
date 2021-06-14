@@ -26,7 +26,6 @@ void UBTService_LookForMore::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* 
         if(OwnerComp.GetAIOwner()->LineOfSightTo(NextTreasure))
         {
             OwnerComp.GetBlackboardComponent()->SetValueAsObject(GetSelectedBlackboardKey(),NextTreasure);
-            NextTreasure->isTaken = true;
 
         }
     }

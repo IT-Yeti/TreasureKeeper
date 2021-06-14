@@ -24,6 +24,7 @@ EBTNodeResult::Type UBTTask_LookForMore::ExecuteTask(UBehaviorTreeComponent& Own
         if(NextTreasure->isTaken == false)
         {
             NPCBlackboard->SetValueAsObject(GetSelectedBlackboardKey(),NextTreasure);
+            NPCBlackboard->SetValueAsBool(TEXT("SeeTreasure"),true);
             break;
         }
     }
