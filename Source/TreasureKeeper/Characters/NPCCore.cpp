@@ -2,6 +2,9 @@
 
 
 #include "NPCCore.h"
+#include "BehaviorTree/BlackboardComponent.h"
+#include "AIController.h"
+#include "GameFramework/Pawn.h"
 
 // Sets default values
 ANPCCore::ANPCCore()
@@ -15,13 +18,28 @@ ANPCCore::ANPCCore()
 void ANPCCore::BeginPlay()
 {
 	Super::BeginPlay();
+	AController* NPCController = GetController();
+	NPCAIController = Cast<AAIController>(NPCController);
+	Blackboard = NPCAIController->GetBlackboardComponent();
 }
 
 // Called every frame
 void ANPCCore::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
-
+	if(Blackboard->GetValueAsObject(TEXT("Treasure"))==nullptr)
+	{
+		if(Treasures.Num()>0)
+		{
+			for(AActor* Treasure : Treasures)
+			{
+				if(Treasure!=nullptr)
+				{
+					Blackboard->SetValueAsObject(TEXT("Treasure"),Treasure);
+				}
+			}
+		}
+	}
 }
 
 

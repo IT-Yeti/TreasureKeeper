@@ -16,6 +16,5 @@ class TREASUREKEEPER_API UBTTask_LookForMore : public UBTTask_BlackboardBase
 public:
 	UBTTask_LookForMore();
 protected:
-	virtual EBTNodeResult::Type ExecuteTask(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory);
 
 };

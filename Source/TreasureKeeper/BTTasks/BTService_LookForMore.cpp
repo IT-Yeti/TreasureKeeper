@@ -3,8 +3,8 @@
 
 #include "BTService_LookForMore.h"
 #include "AIController.h"
-#include "TreasureKeeper/Characters/NPCController.h"
 #include "TreasureKeeper/Actors/Treasure.h"
+#include "TreasureKeeper/Characters/NPCCore.h"
 #include "BehaviorTree/BlackboardComponent.h"
 
 UBTService_LookForMore::UBTService_LookForMore() 
@@ -14,20 +14,18 @@ UBTService_LookForMore::UBTService_LookForMore()
 
 void UBTService_LookForMore::TickNode(UBehaviorTreeComponent& OwnerComp, uint8* NodeMemory, float DeltaSeconds) 
 {
-    if(OwnerComp.GetBlackboardComponent()->GetValueAsObject(GetSelectedBlackboardKey())!=nullptr)
+    if(OwnerComp.GetBlackboardComponent()->GetValueAsObject(TEXT("Treasure"))!=nullptr)
     {
         return;
     }
-    AAIController* OwnerController = OwnerComp.GetAIOwner();
-    ANPCController* NPCController = Cast<ANPCController>(OwnerController);
-    for(AActor* TreasureActor : NPCController->Treasures)
-    {
-        NextTreasure = Cast<ATreasure>(NextTreasure);
-        if(OwnerComp.GetAIOwner()->LineOfSightTo(NextTreasure))
-        {
-            OwnerComp.GetBlackboardComponent()->SetValueAsObject(GetSelectedBlackboardKey(),NextTreasure);
 
+    APawn* NPCPawn = OwnerComp.GetAIOwner()->GetPawn();
+    ANPCCore* NPC = Cast<ANPCCore>(NPCPawn);
+    if(NPC)
+    {
+        if(NPC->Treasures.Num()>0)
+        {
+            OwnerComp.GetBlackboardComponent()->SetValueAsObject(TEXT("Treasure"),NPC->Treasures[0]);
         }
     }
-    
 }

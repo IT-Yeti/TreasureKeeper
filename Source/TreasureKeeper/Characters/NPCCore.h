@@ -15,6 +15,10 @@ public:
 	ANPCCore();
 	UPROPERTY(EditAnywhere,BlueprintReadWrite, Category="AI")
 	TArray<AActor*> Waypoints;
+	UPROPERTY(VisibleAnywhere,BlueprintReadWrite)
+	TArray<AActor*> Treasures;
+	class AAIController* NPCAIController;
+	class UBlackboardComponent* Blackboard;
 protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
@@ -22,5 +26,6 @@ protected:
 public:	
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
-
+private:
+	
 };
