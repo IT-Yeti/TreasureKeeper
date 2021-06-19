@@ -5,7 +5,7 @@
 #include "BehaviorTree/BlackboardComponent.h"
 #include "TreasureKeeper/Actors/Treasure.h"
 #include "AIController.h"
-#include "TreasureKeeper/Characters/NPCController.h"
+#include "TreasureKeeper/Characters/NPCCore.h"
 #include "Kismet/GameplayStatics.h"
 
 UBTTask_PickUpTreasure::UBTTask_PickUpTreasure()
@@ -19,10 +19,18 @@ EBTNodeResult::Type UBTTask_PickUpTreasure::ExecuteTask(UBehaviorTreeComponent& 
     ATreasure* Treasure = Cast<ATreasure>(NPCBlackboard->GetValueAsObject("Treasure"));
     if(Treasure)
     {
+        APawn* NPCPawn = OwnerComp.GetAIOwner()->GetPawn();
+        ANPCCore* NPCClass = Cast<ANPCCore>(NPCPawn);
+        TArray<AActor*>Treasures = NPCClass->Treasures;
+        for(AActor* Skarb : Treasures)
+        {
+            if(Skarb == Treasure)
+            {
+                NPCClass->Treasures.Remove(Skarb);
+            }
+        }
         Treasure->Destroy();
         NPCBlackboard->ClearValue(GetSelectedBlackboardKey());
-        NPCBlackboard->ClearValue(TEXT("SeeTreasure"));
-        Treasure->isTaken=true;
         
     } 
     return EBTNodeResult::Succeeded;
